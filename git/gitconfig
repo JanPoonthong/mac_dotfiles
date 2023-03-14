@@ -1,0 +1,11 @@
+[user]
+	email = janpoonthong628@gmail.com
+	name = Jan Poonthong
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+[alias]
+	l = log --pretty --oneline --graph
+[init]
+	defaultBranch = master
+

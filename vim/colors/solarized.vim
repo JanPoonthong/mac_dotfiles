@@ -1,0 +1,1 @@
+/Users/janpoonthong/.vim/colors/vim-colors-solarized/colors/solarized.vim
