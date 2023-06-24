@@ -4,7 +4,20 @@ set hlsearch
 set incsearch
 set colorcolumn=80
 
-autocmd FileType python nmap <buffer> <F1> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Bundle "lepture/vim-jinja"
+
+call vundle#end()
+filetype plugin indent on
+
+packloadall
+
+autocmd FileType python map <buffer> <F1> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 command -nargs=+ Grep :vimgrep "<args>" **/* | copen
 
 nmap <silent> <unique> <Leader>l :nohlsearch<CR>
@@ -18,24 +31,25 @@ set expandtab
 set softtabstop=-1
 
 set list
-set listchars=tab:⇥\ 
+set list listchars=tab:▸\ 
 
 set showcmd
 let g:loaded_matchparen=1
 
 set rtp+=~/.fzf/
+let $FZF_DEFAULT_COMMAND = 'fd --type f --exclude ENV --exclude node_modules'
 nmap <silent> <unique> <Leader>b :call fzf#run({'sink': 'tabedit', 'down': '40%'})<CR>
 nmap <silent> <unique> <C-P> :call fzf#run({'sink': 'edit', 'down': '40%'})<CR>
 
 set numberwidth=3
 set backspace=indent,eol,start
 
-syntax enable
 filetype indent on
 filetype plugin on
-set background=dark
-let g:solarized_termtrans=1
-colorscheme jan
+" let g:solarized_termtrans=1
+syntax enable
+set background=light
+colorscheme solarized
 
 noremap <unique> <tab> %
 
@@ -53,6 +67,7 @@ let g:ale_set_signs = 0
 let g:ale_lint_delay = 0
 let g:ale_set_highlights = 1
 let g:ale_lint_on_text_changed = 'always'
+let g:ale_virtualtext_cursor = 'disabled'
 highlight ALEError ctermbg=none ctermfg=red cterm=underline
 highlight ALEWarning ctermbg=none ctermfg=red cterm=underline
 
