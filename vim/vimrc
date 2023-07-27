@@ -10,7 +10,6 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Bundle "lepture/vim-jinja"
 Bundle 'sheerun/vim-polyglot'
 
 call vundle#end()
