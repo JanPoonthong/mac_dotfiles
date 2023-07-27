@@ -2,6 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/quick-lint-js/bin/:$PATH
 export PATH=/Library/TeX/texbin:$PATH
+# export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 # export FZF_DEFAULT_COMMAND='fd --type f --exclude ENV --exclude node_modules'
 
 # Path to your oh-my-zsh installation.
@@ -74,7 +75,7 @@ ZSH_THEME="afowler"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
+    # git
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -109,11 +110,42 @@ source $ZSH/oh-my-zsh.sh
 alias twchat="node ~/Projects/chat/chat.js"
 alias cnnbot="node ~/Projects/news-archiver/scraping-worker/cnn.js"
 alias icloud="cd Library/Mobile\ Documents/com\~apple\~CloudDocs/"
+# alias ls="ls --color=auto"
+#
+# Git
+alias gs='git status -s -b && git --no-pager log --oneline -n5 2>/dev/null || :'
+alias gc='git commit -v'
+alias ga='git add -p'
+alias gr='git rebase'
 
-# export LSCOLORS=exfxcxdxbxegedabagacad
+alias gist='gist -p'
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS+=(pattern main regexp)
+
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4e4e4e"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+function ls {
+    command ls -G "$@"
+}
+
+typeset -A ZSH_HIGHLIGHT_STYLES
+# ZSH_HIGHLIGHT_STYLES[arg0]="fg=blue, underline"
+ZSH_HIGHLIGHT_STYLES[reserved-word]="fg=#5bc0be"
+ZSH_HIGHLIGHT_STYLES[alias]="fg=#F72585"
+ZSH_HIGHLIGHT_STYLES[builtin]="fg=#7209B7"
+ZSH_HIGHLIGHT_STYLES[command]="fg=#00afb9"
+ZSH_HIGHLIGHT_STYLES[path_pathseparator]="fg=#212529"
+ZSH_HIGHLIGHT_STYLES[path]="fg=blue,underline"
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]="fg=#a6a6a6"
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]="fg=#a6a6a6"
+
+typeset -A ZSH_HIGHLIGHT_PATTERNS
+ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
+# ZSH_HIGHLIGHT_PATTERNS+=('ls' 'fg=#')
+
+ZSH_HIGHLIGHT_REGEXP+=('[[:<:]]sudo[[:>:]]' fg=123,bold)
+ZSH_HIGHLIGHT_REGEXP+=('^\.\/.*' 'fg=#f56116')
+ZSH_HIGHLIGHT_REGEXP+=('^ls' 'fg=#7209B7')
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -129,3 +161,17 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+export LSCOLORS="exfxcxdxbxegedabagacad"
+export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+PROMPT='%b%F{green}%3~%B%(!.%F{red}.%F{blue})>%f%b '
+RPS1='%(?..%F{red}%? ↵%f)'
+
+ZSH_THEME_HG_PROMPT_PREFIX="%{$fg[magenta]%}hg:‹%{$fg[yellow]%}"
+ZSH_THEME_HG_PROMPT_SUFFIX="%{$fg[magenta]%}› %{$reset_color%}"
+ZSH_THEME_HG_PROMPT_DIRTY=" %{$fg[red]%}✗"
+ZSH_THEME_HG_PROMPT_CLEAN=""
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
