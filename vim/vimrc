@@ -3,6 +3,7 @@ set nowrap
 set hlsearch
 set incsearch
 set colorcolumn=80
+set spell
 
 set nocompatible
 filetype off
@@ -85,6 +86,8 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 highlight ALEError ctermbg=none ctermfg=red cterm=underline
 highlight ALEWarning ctermbg=none ctermfg=red cterm=underline
+
+highlight SpellBad ctermbg=none ctermfg=red cterm=underline
 
 " highlight link ALEVirtualTextError Error
 " highlight ALEVirtualTextWarning ctermbg=none ctermfg=brown cterm=none
