@@ -34,7 +34,7 @@ alias gr='git rebase'
 
 alias gist='gist -p'
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS+=(pattern main regexp)
+ZSH_HIGHLIGHT_HIGHLIGHTERS+=(main pattern regexp )
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4e4e4e"
 
@@ -48,17 +48,18 @@ ZSH_HIGHLIGHT_STYLES[reserved-word]="fg=#5bc0be"
 ZSH_HIGHLIGHT_STYLES[alias]="fg=#F72585"
 ZSH_HIGHLIGHT_STYLES[builtin]="fg=#7209B7"
 ZSH_HIGHLIGHT_STYLES[command]="fg=#00afb9"
-ZSH_HIGHLIGHT_STYLES[path_pathseparator]="fg=#212529"
+ZSH_HIGHLIGHT_STYLES[precommand]="fg=000000"
+# ZSH_HIGHLIGHT_STYLES[path_pathseparator]="fg=#212529"
 ZSH_HIGHLIGHT_STYLES[path]="fg=blue,underline"
 ZSH_HIGHLIGHT_STYLES[single-hyphen-option]="fg=#a6a6a6"
 ZSH_HIGHLIGHT_STYLES[double-hyphen-option]="fg=#a6a6a6"
 
 typeset -A ZSH_HIGHLIGHT_PATTERNS
 ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
-# ZSH_HIGHLIGHT_PATTERNS+=('ls' 'fg=#')
 
+typeset -A ZSH_HIGHLIGHT_REGEXP
 ZSH_HIGHLIGHT_REGEXP+=('[[:<:]]sudo[[:>:]]' fg=123,bold)
-ZSH_HIGHLIGHT_REGEXP+=('^\.\/.*' 'fg=#f56116')
+ZSH_HIGHLIGHT_REGEXP+=('^\./[^ ]+' 'fg=#f56116')
 ZSH_HIGHLIGHT_REGEXP+=('^ls' 'fg=#7209B7')
 
 # >>> conda initialize >>>
