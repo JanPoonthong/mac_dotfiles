@@ -65,6 +65,18 @@ colorscheme solarized
 
 noremap <unique> <tab> %
 
+function! TogglePaste()
+    if(&paste == 0)
+        set paste
+        echo "Paste Mode Enabled"
+    else
+        set nopaste
+        echo "Paste Mode Disabled"
+    endif
+endfunction
+
+map <F3> :call TogglePaste()<cr>
+
 let s:i = 1
 while s:i <= 10
   execute printf(
