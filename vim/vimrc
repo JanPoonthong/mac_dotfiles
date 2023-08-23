@@ -3,7 +3,6 @@ set nowrap
 set hlsearch
 set incsearch
 set colorcolumn=80
-set spell
 
 set nocompatible
 filetype off
@@ -21,6 +20,8 @@ packloadall
 autocmd FileType python map <buffer> <F1> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd filetype c nnoremap <F1> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp nnoremap <F1> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+
+set wildignore+=node_modules/**,.git/**,dist/**,build/**
 command -nargs=+ Grep :vimgrep "<args>" **/* | copen
 
 nmap <silent> <unique> <Leader>l :nohlsearch<CR>
@@ -75,6 +76,17 @@ function! TogglePaste()
     endif
 endfunction
 
+function! ToggleSpell()
+    if(&spell == 0)
+        set spell
+        echo "Spell Mode Enabled"
+    else
+        set nospell
+        echo "Spell Mode Disabled"
+    endif
+endfunction
+
+map <F2> :call TogglePaste()<cr>
 map <F3> :call TogglePaste()<cr>
 
 let s:i = 1
