@@ -1,7 +1,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/Projects/twitch_notify/bin/:$PATH
 export PATH=$HOME/quick-lint-js/bin/:$PATH
 export PATH=/Library/TeX/texbin:$PATH
+export PATH=/Users/janpoonthong/Library/Application\ Support/JetBrains/Toolbox/scripts:$PATH
+export PATH=$HOME/Projects/title_case_converter/:$PATH
 # export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 # export FZF_DEFAULT_COMMAND='fd --type f --exclude ENV --exclude node_modules'
 
