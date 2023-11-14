@@ -7,3 +7,9 @@
 [submodule "zsh/zsh-dircolors-solarized"]
 	path = zsh/zsh-dircolors-solarized
 	url = https://github.com/joel-porquet/zsh-dircolors-solarized
+[submodule "vim/plugged/typescript-vim"]
+	path = vim/plugged/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim
+[submodule "vim/plugged/vim-polyglot"]
+	path = vim/plugged/vim-polyglot
+	url = git@github.com:sheerun/vim-polyglot.git
