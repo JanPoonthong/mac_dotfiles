@@ -4,16 +4,23 @@ set hlsearch
 set incsearch
 set colorcolumn=80
 
+noremap <Leader><Left>  :tabmove -1<CR>
+noremap <Leader><Right> :tabmove +1<CR>
+
+set mouse=a
+
+" set re=0
+
+let g:polyglot_disabled = ['typescript.plugin']
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 
-Bundle 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
+Plug 'leafgarland/typescript-vim'
 
-call vundle#end()
-filetype plugin indent on
+call plug#end()
 
 packloadall
 
@@ -21,10 +28,13 @@ autocmd FileType python map <buffer> <F1> :w<CR>:exec '!python3' shellescape(@%,
 autocmd filetype c nnoremap <F1> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp nnoremap <F1> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 
-set wildignore+=node_modules/**,.git/**,dist/**,build/**
+set wildignore+=*/node_modules/**,.git/**,dist/**,build/**
 command -nargs=+ Grep :vimgrep "<args>" **/* | copen
 
 nmap <silent> <unique> <Leader>l :nohlsearch<CR>
+
+nmap <silent> <C-j> :ALENext<CR>
+nmap <silent> <C-k> :ALEPrevious<CR>
 
 set wildmenu
 set relativenumber
@@ -45,7 +55,8 @@ let g:loaded_matchparen=1
 
 let current_directory = substitute(getcwd(), $HOME, '~', '') . '/'
 
-set rtp+=~/.fzf/
+" set rtp+=~/.fzf/
+set rtp+=/opt/homebrew/opt/fzf
 let $FZF_DEFAULT_COMMAND = 'fd --type f --exclude venv --exclude node_modules --exclude ENV'
 nmap <silent> <unique> <Leader>b :call fzf#run({'sink': 'tabedit', 'down': '40%', 'options' : '--prompt ' . shellescape(current_directory)})<CR>
 nmap <silent> <unique> <C-P> :call fzf#run({'sink': 'edit', 'down': '40%', 'options': '--prompt ' . shellescape(current_directory)})<CR>
@@ -60,10 +71,12 @@ set backspace=indent,eol,start
 
 filetype indent on
 filetype plugin on
-syntax enable
+syntax on
+
 set background=light
 colorscheme solarized
 
+nmap , $p
 noremap <unique> <tab> %
 
 function! TogglePaste()
@@ -86,7 +99,7 @@ function! ToggleSpell()
     endif
 endfunction
 
-map <F2> :call TogglePaste()<cr>
+map <F2> :call ToggleSpell()<cr>
 map <F3> :call TogglePaste()<cr>
 
 let s:i = 1
