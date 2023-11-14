@@ -4,9 +4,6 @@
 [submodule "vim/pack/git-plugins/start/ale"]
 	path = vim/pack/git-plugins/start/ale
 	url = git@github.com:dense-analysis/ale.git
-[submodule "zsh/zsh-dircolors-solarized"]
-	path = zsh/zsh-dircolors-solarized
-	url = https://github.com/joel-porquet/zsh-dircolors-solarized
 [submodule "vim/plugged/typescript-vim"]
 	path = vim/plugged/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim

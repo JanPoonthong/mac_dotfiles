@@ -36,6 +36,7 @@ alias gr='git rebase'
 alias gist='gist -p'
 alias notebook='/Users/janpoonthong/anaconda3/bin/jupyter_mac.command'
 alias eject="osascript ~/Third_Party/eject-all-ejectable/eject-all-ejectable.applescript"
+alias dircolors='gdircolors'
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS+=(main pattern regexp )
 
