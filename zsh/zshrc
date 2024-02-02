@@ -95,3 +95,4 @@ ZSH_THEME_HG_PROMPT_DIRTY=""
 ZSH_THEME_HG_PROMPT_CLEAN=""
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(zoxide init zsh)"
