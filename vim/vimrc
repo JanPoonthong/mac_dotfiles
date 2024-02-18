@@ -24,8 +24,8 @@ call plug#begin()
 
 Plug 'sheerun/vim-polyglot'
 Plug 'leafgarland/typescript-vim'
-Plug 'preservim/nerdtree'
 Plug 'prisma/vim-prisma'
+Plug 'preservim/nerdtree'
 
 call plug#end()
 
@@ -34,6 +34,7 @@ packloadall
 autocmd FileType python map <buffer> <F1> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd filetype c nnoremap <F1> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp nnoremap <F1> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+
 nnoremap <leader>n :NERDTreeExplore<CR>
 
 nnoremap <Leader>a :tabe \| Ack<Space>
@@ -41,6 +42,7 @@ nnoremap <Leader>f :Ack<Space>
 
 " set wildignore+=*/node_modules/**,.git/**,dist/**,build/**
 " command -nargs=+ Grep :vimgrep "<args>" **/* | copen
+command Forcetab set autoindent noexpandtab tabstop=4 shiftwidth=4
 
 nmap <silent> <unique> <Leader>l :nohlsearch<CR>
 
@@ -75,9 +77,11 @@ for i in range(tabpagenr('$'))
     if i+1 < tabpagenr('$')
         let s .= ' |'
     endif
+
 endfor
 return s
 endfu
+
 set tabline=%!MyTabLine()
 
 set wildmenu
