@@ -23,7 +23,7 @@ call vundle#end()
 
 call plug#begin()
 
-Plug 'sbdchd/neoformat'
+Plug 'prettier/vim-prettier'
 Plug 'sheerun/vim-polyglot'
 Plug 'leafgarland/typescript-vim'
 Plug 'prisma/vim-prisma'
@@ -37,12 +37,15 @@ autocmd FileType python map <buffer> <F1> :w<CR>:exec '!python3' shellescape(@%,
 autocmd filetype c nnoremap <F1> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp nnoremap <F1> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 
+let g:NERDTreeIgnore = ['^node_modules$']
 nnoremap <leader>n :NERDTreeExplore<CR>
 
 nnoremap <Leader>a :tabe \| Ack<Space>
 nnoremap <Leader>f :Ack<Space>
 
-nnoremap <leader>gp :Neoformat prettier<CR>
+nnoremap <leader>gp :Prettier<CR>
+
+let g:prettier#config#tab_width = '4'
 
 " set wildignore+=*/node_modules/**,.git/**,dist/**,build/**
 " command -nargs=+ Grep :vimgrep "<args>" **/* | copen
