@@ -68,7 +68,12 @@ typeset -A ZSH_HIGHLIGHT_PATTERNS
 ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
 
 typeset -A ZSH_HIGHLIGHT_REGEXP
-ZSH_HIGHLIGHT_REGEXP+=('[[:<:]]sudo[[:>:]]' fg=123,bold)
+# ZSH_HIGHLIGHT_REGEXP+=('[[:<:]]sudo[[:>:]]' fg=123,bold)
+# ZSH_HIGHLIGHT_REGEXP+=('^\./[^ ]+' 'fg=#f56116')
+# ZSH_HIGHLIGHT_REGEXP+=('^(ls( |$))' 'fg=#7209B7')
+
+# Linux
+ZSH_HIGHLIGHT_REGEXP+=('\<sudo\>' fg=123,bold)
 ZSH_HIGHLIGHT_REGEXP+=('^\./[^ ]+' 'fg=#f56116')
 ZSH_HIGHLIGHT_REGEXP+=('^(ls( |$))' 'fg=#7209B7')
 

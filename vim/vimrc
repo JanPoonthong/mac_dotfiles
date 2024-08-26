@@ -118,8 +118,8 @@ set backspace=indent,eol,start
 filetype indent on
 syntax on
 
-set background=light
-colorscheme solarized
+" set background=light
+" colorscheme solarized
 
 nmap , $p
 noremap <unique> <tab> %
