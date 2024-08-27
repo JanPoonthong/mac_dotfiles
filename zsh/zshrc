@@ -1,9 +1,9 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/quick-lint-js/bin/:$PATH
-export PATH=/Library/TeX/texbin:$PATH
+# export PATH=/Library/TeX/texbin:$PATH
 export PATH=/Users/janpoonthong/Library/Application\ Support/JetBrains/Toolbox/scripts:$PATH
 export PATH=$HOME/Projects/title_case_converter/:$PATH
-export PATH=/usr/local/smlnj/bin:$PATH
+# export PATH=/usr/local/smlnj/bin:$PATH
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
@@ -26,6 +26,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+source "$HOME/.vim/pack/default/start/gruvbox/gruvbox_256palette.sh"
 
 alias twchat="node ~/Projects/chat/chat.js"
 alias cnnbot="node ~/Projects/news-archiver/scraping-worker/cnn.js"
@@ -87,6 +88,24 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# Create x86 conda environment
+create_x86_conda_environment () {
+
+  # example usage: create_x86_conda_environment myenv_x86 python=3.9
+  CONDA_SUBDIR=osx-64 conda create -n $@
+  conda activate $1
+
+}
+
+# Create ARM conda environment
+create_ARM_conda_environment () {
+
+  # example usage: create_ARM_conda_environment myenv_x86 python=3.9
+  CONDA_SUBDIR=osx-arm64 conda create -n $@
+  conda activate $1
+
+}
+
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -105,3 +124,11 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(zoxide init zsh)"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# pnpm
+export PNPM_HOME="/Users/janpoonthong/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
