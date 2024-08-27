@@ -9,5 +9,4 @@ hi TabLineSel cterm=bold ctermfg=white ctermbg=blue guifg=white guibg=blue
 " Set the foreground color of the inactive tabs to light gray
 hi TabLine cterm=none ctermfg=lightgray ctermbg=black guifg=lightgray guibg=black
 
-
 let colors_name = 'jan'
