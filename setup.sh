@@ -19,6 +19,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # Remove existing .zshrc and configure it
 echo "Removing existing .zshrc and configuring new one..."
 rm -rf $HOME/.zshrc
+rm -rf $HOME/.vim
 
 # Clone Zsh plugins
 echo "Cloning Zsh plugins (zsh-autosuggestions and zsh-syntax-highlighting)..."
@@ -27,11 +28,11 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 
 # Link dotfiles
 echo "Linking dotfiles..."
+ln -s $PWD/vim $HOME/.vim
 ln -s $PWD/zsh/zshrc $HOME/.zshrc
 ln -s $PWD/zsh/zsh_aliases $HOME/.zsh_aliases
 ln -s $PWD/zsh/zsh_exports $HOME/.zsh_exports
 ln -s $PWD/zsh/zsh_functions $HOME/.zsh_functions
-ln -s $PWD/vim $HOME/.vim
 ln -s $PWD/vim/vimrc $HOME/.vimrc
 ln -s $PWD/git/gitignore $HOME/.gitignore
 ln -s $PWD/git/gitconfig $HOME/.gitconfig
