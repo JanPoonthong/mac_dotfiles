@@ -188,6 +188,7 @@ syntax on
 
 set background=light
 let g:solarized_termcolors=16
+" colorscheme default
 colorscheme solarized
 " let g:gruvbox_termcolors=16
 " colorscheme gruvbox
@@ -215,8 +216,23 @@ function! ToggleSpell()
     endif
 endfunction
 
+function! ToggleTabsSpaces()
+  if &expandtab
+    " Switch to tabs
+    set noexpandtab
+    set tabstop=4 shiftwidth=4 softtabstop=4
+    echo "Using Tabs"
+  else
+    " Switch to spaces
+    set expandtab
+    set tabstop=4 shiftwidth=4 softtabstop=4
+    echo "Using Spaces"
+  endif
+endfunction
+
 map <F2> :call ToggleSpell()<cr>
 map <F3> :call TogglePaste()<cr>
+map <F4> :call ToggleTabsSpaces()<CR>
 
 let s:i = 1
 while s:i <= 10

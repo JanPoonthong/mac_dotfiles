@@ -9,9 +9,10 @@
 [init]
 	defaultBranch = master
 [color "status"]
-        added = yellow
-        changed = green
-        untracked = cyan
+added = yellow
+	added = yellow
+	changed = green
+	untracked = cyan
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
