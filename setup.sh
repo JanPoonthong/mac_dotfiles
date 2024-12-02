@@ -28,6 +28,9 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 # Link dotfiles
 echo "Linking dotfiles..."
 ln -s $PWD/zsh/zshrc $HOME/.zshrc
+ln -s $PWD/zsh/zsh_aliases $HOME/.zsh_aliases
+ln -s $PWD/zsh/zsh_exports $HOME/.zsh_exports
+ln -s $PWD/zsh/zsh_functions $HOME/.zsh_functions
 ln -s $PWD/vim $HOME/.vim
 ln -s $PWD/vim/vimrc $HOME/.vimrc
 ln -s $PWD/git/gitignore $HOME/.gitignore

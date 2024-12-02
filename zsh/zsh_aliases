@@ -1,0 +1,9 @@
+# Git
+alias gs='git status -s -b && git --no-pager log --oneline -n5 2>/dev/null || :'
+alias gc='git commit -v'
+alias ga='git add -p'
+alias gr='git rebase'
+
+alias gist='gist -p'
+alias twchat="node ~/Projects/chat/chat.js"
+alias icloud="cd Library/Mobile\ Documents/com\~apple\~CloudDocs/"
