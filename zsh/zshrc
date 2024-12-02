@@ -51,11 +51,6 @@ export LSCOLORS="exfxcxdxbxegedabagacad"
 export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git:*' formats '(%b)'
-precmd() { vcs_info }
-
 PROMPT='%B%F{cyan}%n@%m%f%b %F{green}%3~%f%B%(!.%F{red}.%F{blue})%f%b%(?.. %F{red}%?%f)> '
 RPS1=''
 
