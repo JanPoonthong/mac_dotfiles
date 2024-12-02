@@ -75,43 +75,6 @@ function! Tabline()
 endfunction
 set tabline=%!Tabline()
 
-" function MyTabLine()
-"   let s = ''
-"   for i in range(tabpagenr('$'))
-"     " select the highlighting
-"     if i + 1 == tabpagenr()
-"       let s ..= '%#TabLineSel#'
-"     else
-"       let s ..= '%#TabLine#'
-"     endif
-" 
-"     " set the tab page number (for mouse clicks)
-"     let s ..= '%' .. (i + 1) .. 'T'
-"     " display tabnumber (for use with <count>gt, etc)
-"     let s .= ' '. (i+1) . ' '
-"     " the label is made by MyTabLabel()
-"     let s ..= '%{MyTabLabel(' .. (i + 1) .. ')} |'
-" 
-"   " if i+1 < tabpagenr('$')
-"   "     let s .= ' |'
-"   " endif
-"   endfor
-" 
-"   " after the last tab fill with TabLineFill and reset tab page nr
-"   " let s ..= ' %#TabLineFill#%T'
-"   let s ..= '%#TabLineFill#%T'
-"   return s
-" endfunction
-" 
-" function MyTabLabel(n)
-"   let buflist = tabpagebuflist(a:n)
-"   let winnr = tabpagewinnr(a:n)
-"   let string = bufname(buflist[winnr - 1])
-"   return empty(string) ? '[unnamed]': string
-" endfunction
-" 
-" set tabline=%!MyTabLine()
-
 set wildmenu
 set relativenumber
 set laststatus=2
@@ -162,19 +125,6 @@ endfunction
 " Define the Grep command that uses the SearchRipGrep function
 command! -nargs=+ Grep call SearchRipGrep(<q-args>)
 
-" function! FilterString(path, searchString) abort
-"   let searchedPath = split(a:path, ':')
-"   let filename = searchedPath[0]
-"   let lineNumber = searchedPath[1]
-"   let offset = searchedPath[2]
-"   execute "edit " . filename
-"   call cursor(lineNumber, offset)
-"   execute "/" . a:searchString
-"   execute "normal! n"
-" endfunction
-
-" command -nargs=+ Grep :call fzf#run({'source': SearchRipGrep(<q-args>), 'sink': {path -> FilterString(path, <q-args>)}, 'down': '40%'})
-
 let g:fzf_layout = { 'down': '30%' }
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
@@ -190,8 +140,6 @@ set background=light
 let g:solarized_termcolors=16
 " colorscheme default
 colorscheme solarized
-" let g:gruvbox_termcolors=16
-" colorscheme gruvbox
 
 nmap , $p
 noremap <unique> <tab> %
