@@ -5,5 +5,4 @@ alias ga='git add -p'
 alias gr='git rebase'
 
 alias gist='gist -p'
-alias twchat="node ~/Projects/chat/chat.js"
 alias icloud="cd Library/Mobile\ Documents/com\~apple\~CloudDocs/"

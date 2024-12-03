@@ -1,52 +1,117 @@
-set scrolloff=10
-set nowrap 
-set hlsearch
-set incsearch
-set colorcolumn=80,120
+" Disable compatibility with vi which can cause unexpected issues.
+set nocompatible
 
+" Enable type file detection. Vim will be able to try to detect the type of file is use.
+filetype on
+
+" Enable plugins and load plugin for the detected file type.
+filetype plugin on
+
+" Load an indent file for the detected file type.
+filetype indent on
+
+" Turn syntax highlighting on.
+syntax on
+
+" Add relativenumber to the file.
+set relativenumber
+
+" Do not save backup files.
+set nobackup
+
+" Do not let cursor scroll below or above N number of lines when scrolling.
+set scrolloff=10
+
+" Do not wrap lines. Allow long lines to extend as far as the line goes.
+set nowrap
+
+" While searching though a file incrementally highlight matching characters as you type.
+set incsearch
+
+" Show partial command you type in the last line of the screen.
+set showcmd
+
+" Show the mode you are on the last line.
+set showmode
+
+" Show matching words during a search.
+set showmatch
+
+" Use highlighting when doing a search.
+set hlsearch
+
+" Set the commands to save in history default number is 20.
+set history=1000
+
+" Enable auto completion menu after pressing TAB.
+set wildmenu
+
+" There are certain files that we would never want to edit with Vim.
+" Wildmenu will ignore files with these extensions.
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*/node_modules/**,.git/**,dist/**,build/**
+
+" Ignore matching paren
+let g:loaded_matchparen=1
+
+" Turn on mouse
+set mouse=a
+
+set shiftwidth=4 et
+set tabstop=8
+set expandtab
+set softtabstop=-1
+
+set list
+set listchars=
+set listchars+=precedes:<,extends:>
+set listchars+=tab:▸\ 
+
+set numberwidth=3
+set colorcolumn=80,120
+set backspace=indent,eol,start
+
+set background=light
+colorscheme default
+
+
+" PLUGINS ---------------------------------------------------------------- {{{
+
+call plug#begin('~/.vim/plugged')
+
+  Plug 'dense-analysis/ale'
+
+  Plug 'preservim/nerdtree'
+
+call plug#end()
+
+" }}}
+
+" MAPPINGS --------------------------------------------------------------- {{{
+" Move vim tabs
 noremap <Leader><Left>  :tabmove -1<CR>
 noremap <Leader><Right> :tabmove +1<CR>
 
-set re=2
-
-" May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
-" utf-8 byte sequence
-set encoding=utf-8
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
-" delays and poor user experience
-set updatetime=300
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved
-set signcolumn=yes
-
-inoremap <silent><expr> <c-@> coc#refresh()
-
-set mouse=a
-
-autocmd Filetype json
-  \ let g:indentLine_setConceal = 0 |
-
-autocmd FileType python map <buffer> <F1> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+" Filetype
+autocmd filetype python map <buffer> <F1> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd filetype c nnoremap <F1> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp nnoremap <F1> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 
-" nnoremap <Leader>w :Windows<CR>
-
-set wildignore+=*/node_modules/**,.git/**,dist/**,build/**
-" command -nargs=+ Grep :vimgrep "<args>" **/* | copen
-command Forcetab set autoindent noexpandtab tabstop=4 shiftwidth=4
-
-nmap <silent> <unique> <Leader>l :nohlsearch<CR>
-
+" ALE
 nmap <silent> <C-j> :ALENext<CR>
 nmap <silent> <C-k> :ALEPrevious<CR>
 
-packloadall
+" Custom
+nmap , $p
+nmap <silent> <unique> <Leader>l :nohlsearch<CR>
+noremap <unique> <tab> %
+
+" Have nerdtree ignore certain files and directories.
+let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
+
+" }}}
+
+" VIMSCRIPT -------------------------------------------------------------- {{{
+
 function! Tabline()
   let s = ''
   for i in range(tabpagenr('$'))
@@ -73,76 +138,24 @@ function! Tabline()
   endif
   return s
 endfunction
+
 set tabline=%!Tabline()
 
-set wildmenu
-set relativenumber
-set laststatus=2
-
-set shiftwidth=4 et
-set tabstop=8
-set expandtab
-set softtabstop=-1
-
-set list
-set listchars=
-set listchars+=precedes:<,extends:>
-set listchars+=tab:▸\ 
-
-set showcmd
-let g:loaded_matchparen=1
-
-let current_directory = substitute(getcwd(), $HOME, '~', '') . '/'
-
-" set rtp+=~/.fzf/
-set rtp+=/opt/homebrew/opt/fzf
-let $FZF_DEFAULT_COMMAND = 'fd -I --type f --exclude venv --exclude node_modules --exclude ENV'
-nmap <silent> <unique> <Leader>b :call fzf#run({'sink': 'tabedit', 'down': '40%', 'options' : '--prompt ' . shellescape(current_directory)})<CR>
-nmap <silent> <unique> <C-P> :call fzf#run({'sink': 'edit', 'down': '40%', 'options': '--prompt ' . shellescape(current_directory)})<CR>
-
-" function SearchRipGrep(to)
-"   return "rg --line-number --column " . a:to
-" endfunction
-
-" Function to search using ripgrep and populate the quickfix list
 function! SearchRipGrep(pattern)
-  " Ensure the pattern is provided
   if empty(a:pattern)
     echo "Error: No search pattern provided."
     return
   endif
-  " Construct the rg command and execute it, populating the quickfix list
   let l:escaped_pattern = shellescape(a:pattern)
   let l:command = 'rg --vimgrep ' . l:escaped_pattern
 
   let l:results = systemlist(l:command)
 
   execute 'cgetexpr ' . string(l:results)
-  " Open the quickfix window
   copen 
 endfunction
 
-" Define the Grep command that uses the SearchRipGrep function
 command! -nargs=+ Grep call SearchRipGrep(<q-args>)
-
-let g:fzf_layout = { 'down': '30%' }
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
-set numberwidth=3
-set backspace=indent,eol,start
-
-filetype indent on
-syntax on
-
-set background=light
-let g:solarized_termcolors=16
-" colorscheme default
-colorscheme solarized
-
-nmap , $p
-noremap <unique> <tab> %
 
 function! TogglePaste()
     if(&paste == 0)
@@ -164,24 +177,10 @@ function! ToggleSpell()
     endif
 endfunction
 
-function! ToggleTabsSpaces()
-  if &expandtab
-    " Switch to tabs
-    set noexpandtab
-    set tabstop=4 shiftwidth=4 softtabstop=4
-    echo "Using Tabs"
-  else
-    " Switch to spaces
-    set expandtab
-    set tabstop=4 shiftwidth=4 softtabstop=4
-    echo "Using Spaces"
-  endif
-endfunction
-
 map <F2> :call ToggleSpell()<cr>
 map <F3> :call TogglePaste()<cr>
-map <F4> :call ToggleTabsSpaces()<CR>
 
+" Vim Tabs
 let s:i = 1
 while s:i <= 10
   execute printf(
@@ -192,40 +191,70 @@ while s:i <= 10
   let s:i += 1
 endwhile
 
-let g:python_highlight_all = 1
-
-" let g:ale_set_signs = 0
-" let g:ale_lint_delay = 0
-" let g:ale_set_highlights = 1
-" let g:ale_lint_on_text_changed = 'always'
-" let g:ale_virtualtext_cursor = 'disabled'
-" let g:ale_echo_msg_error_str = 'E'
-" let g:ale_echo_msg_warning_str = 'W'
-" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" 
-" highlight ALEError ctermbg=none ctermfg=red cterm=underline
-" highlight ALEWarning ctermbg=none ctermfg=red cterm=underline
-
 highlight SpellBad ctermbg=none ctermfg=red cterm=underline
 
-" hi TabLine      ctermfg=BLACK ctermbg=180 cterm=NONE
-" hi TabLineFill  ctermfg=BLACK ctermbg=180 cterm=NONE
-" hi TabLineSel   ctermfg=WHITE ctermbg=95 cterm=NONE
+" ForceTab
+command Forcetab set autoindent noexpandtab tabstop=4 shiftwidth=4
 
-" highlight link ALEVirtualTextError Error
-" highlight ALEVirtualTextWarning ctermbg=none ctermfg=brown cterm=none
+" If the current file type is HTML, set indentation to 2 spaces.
+autocmd Filetype html setlocal tabstop=2 shiftwidth=2 expandtab
 
-set directory=~/.vim/swap/
+" If GUI version of Vim is running set these options.
+if has('gui_running')
+
+    " Set the background tone.
+    set background=light
+
+    " Set the color scheme.
+    colorscheme default
+
+    " Set a custom font you have installed on your computer.
+    " Syntax: <font_name>\ <weight>\ <size>
+    set guifont=Monospace\ Regular\ 12
+endif
+
+
+" }}}
+
+" STATUS LINE ------------------------------------------------------------ {{{
+
+" Clear status line when vimrc is reloaded.
 set statusline=\ \ \ %<%f\ %m "Filename [-]
+
+" Status line left side.
 set statusline+=%=%(%l,%c%V%) "Line, col
 
+" Show the status on the second to last line.
+set laststatus=2
+
+" }}}
+
+" FZF
+if executable('fzf')
+    set rtp+=~/.fzf
+else
+    echo "FZF is not installed or not in PATH."
+endif
+let g:fzf_layout = { 'down': '30%' }
+let current_directory = substitute(getcwd(), $HOME, '~', '') . '/'
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --exclude .git --exclude venv --exclude node_modules --exclude ENV'
+nmap <silent> <unique> <Leader>b :call fzf#run({'sink': 'tabedit', 'down': '40%', 'options' : '--prompt ' . shellescape(current_directory)})<CR>
+nmap <silent> <unique> <C-P> :call fzf#run({'sink': 'edit', 'down': '40%', 'options': '--prompt ' . shellescape(current_directory)})<CR>
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+" Custom
+set directory=~/.vim/swap/
 set title
 set titlestring=%t
 
+" Cursor
 let &t_SI.="\e[6 q" "SI = INSERT mode
 let &t_SR.="\e[4 q" "SR = REPLACE mode
 let &t_EI.="\e[2 q" "EI = NORMAL mode
 
+" Esc
 set esckeys
 set notimeout ttimeout ttimeoutlen=0
 

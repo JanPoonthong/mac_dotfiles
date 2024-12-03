@@ -12,6 +12,13 @@ install_linux() {
     sudo apt install -y htop vim tmux nodejs fzf
 }
 
+rm -rf $HOME/.oh-my-zsh
+
+# Install FZF
+echo "Installing FZF..."
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+$HOME/.fzf/install
+
 # Install oh-my-zsh
 echo "Installing Oh My Zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -20,6 +27,13 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 echo "Removing existing .zshrc and configuring new one..."
 rm -rf $HOME/.zshrc
 rm -rf $HOME/.vim
+rm -rf $HOME/.vimrc
+rm -rf $HOME/.tmux.conf
+rm -rf $HOME/.gitignore
+rm -rf $HOME/.gitconfig
+rm -rf $HOME/.zsh_aliases
+rm -rf $HOME/.zsh_exports
+rm -rf $HOME/.zsh_functions
 
 # Clone Zsh plugins
 echo "Cloning Zsh plugins (zsh-autosuggestions and zsh-syntax-highlighting)..."

@@ -12,5 +12,5 @@ db.sqlite3
 .idea/
 .vscode/
 
-# Mac
+#Mac
 .DS_Store

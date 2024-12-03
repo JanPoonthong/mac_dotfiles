@@ -4,17 +4,3 @@
 [core]
 	editor = vim
 	excludesfile = ~/.gitignore
-[alias]
-	l = log --pretty --oneline --graph
-[init]
-	defaultBranch = master
-[color "status"]
-added = yellow
-	added = yellow
-	changed = green
-	untracked = cyan
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
