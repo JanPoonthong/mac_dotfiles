@@ -110,4 +110,18 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-PROMPT='%B%F{cyan}%n@%m%f%b %F{green}%3~%f%B%(!.%F{red}.%F{blue})%f%b%(?.. %F{red}%?%f)> '
+# credit: https://github.com/strager/dotfiles/blob/master/zsh/strager/strager_prompt_cwd
+strager_prompt_cwd() {
+    strager_prompt_shrink_path "$(print -P %~)"
+}
+
+# Replace /foo/bar/baz with /f/b/baz.
+strager_prompt_shrink_path() {
+    local path="${1}"
+    setopt local_options
+    setopt extended_glob
+    printf %s "${path//(#b)([^\/])[^\/]#\//${match[1]}/}"
+}
+
+# PROMPT='%B%F{cyan}%n@%m%f%b %F{green}%3~%f%B%(!.%F{red}.%F{blue})%f%b%(?.. %F{red}%?%f)> '
+PROMPT='%B%F{cyan}%n@%m%f%b %F{green}$(strager_prompt_cwd)%f%B%(!.%F{red}.%F{blue})%f%b%(?.. %F{red}%?%f)> '
