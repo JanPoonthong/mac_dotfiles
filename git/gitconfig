@@ -2,7 +2,7 @@
 	email = janpoonthong628@gmail.com
 	name = Jan Poonthong
 [core]
-	editor = vim
+	editor = nvim
 	excludesfile = ~/.gitignore
 [init]
 	defaultBranch = master

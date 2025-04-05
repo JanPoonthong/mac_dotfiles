@@ -6,3 +6,5 @@ alias gr='git rebase'
 
 alias gist='gist -p'
 alias icloud="cd Library/Mobile\ Documents/com\~apple\~CloudDocs/"
+
+alias vim="nvim"

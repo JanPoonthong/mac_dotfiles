@@ -73,7 +73,6 @@ set backspace=indent,eol,start
 set background=light
 colorscheme default
 
-
 " PLUGINS ---------------------------------------------------------------- {{{
 
 call plug#begin('~/.vim/plugged')
@@ -105,8 +104,35 @@ nmap , $p
 nmap <silent> <unique> <Leader>l :nohlsearch<CR>
 noremap <unique> <tab> %
 
+nnoremap <C-t> :NERDTreeToggle<CR>
+
 " Have nerdtree ignore certain files and directories.
 let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
+
+" Start NERDTree when Vim is started without file arguments.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+
+" Start NERDTree. If a file is specified, move the cursor to its window.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+
+" Start NERDTree when Vim starts with a directory argument.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | " silent NERDTreeMirror | endif
+
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
+
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
 
 " }}}
 
@@ -235,6 +261,7 @@ if executable('fzf')
 else
     echo "FZF is not installed or not in PATH."
 endif
+
 let g:fzf_layout = { 'down': '30%' }
 let current_directory = substitute(getcwd(), $HOME, '~', '') . '/'
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --exclude .git --exclude venv --exclude node_modules --exclude ENV'

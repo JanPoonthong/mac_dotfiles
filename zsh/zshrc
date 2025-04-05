@@ -125,3 +125,14 @@ strager_prompt_shrink_path() {
 
 # PROMPT='%B%F{cyan}%n@%m%f%b %F{green}%3~%f%B%(!.%F{red}.%F{blue})%f%b%(?.. %F{red}%?%f)> '
 PROMPT='%B%F{cyan}%n@%m%f%b %F{green}$(strager_prompt_cwd)%f%B%(!.%F{red}.%F{blue})%f%b%(?.. %F{red}%?%f)> '
+
+# pnpm
+export PNPM_HOME="/Users/janpoonthong/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# postgres
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
