@@ -21,5 +21,5 @@ for i = 1, 10 do
   vim.keymap.set("n", "<leader>" .. key, ":" .. i .. "tabnext<CR>", { noremap = true, silent = true })
 end
 
-vim.keymap.set('n', '<A-Left>', ':-tabmove<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<A-Right>', ':+tabmove<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader><Right>', ':+tabmove<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader><Left>', ':-tabmove<CR>', { noremap = true, silent = true })
