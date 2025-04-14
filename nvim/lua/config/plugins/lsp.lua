@@ -1,25 +1,14 @@
 return {
     {
         "neovim/nvim-lspconfig",
-        dependences =
-            { 'saghen/blink.cmp' },
-            {
-                "folke/lazydev.nvim",
-                ft = "lua", -- only load on lua files
-                opts = {
-                    library = {
-                        -- See the configuration section for more details
-                        -- Load luvit types when the `vim.uv` word is found
-                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-                    },
-                },
-            },
+        dependences = 'saghen/blink.cmp',
         config = function()
             local capabilities = require('blink.cmp').get_lsp_capabilities()
             local lspconfig = require('lspconfig')
-            lspconfig.pyright.setup({capabilities = capabilities})
-            lspconfig.lua_ls.setup({capabilities = capabilities})
-            lspconfig.ts_ls.setup({capabilities = capabilities})
+            lspconfig.pyright.setup{capabilites = capabilities}
+            lspconfig.lua_ls.setup{capabilites = capabilities}
+            lspconfig.ts_ls.setup{capabilites = capabilities}
+
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
             vim.diagnostic.config({
                 virtual_text = true,
