@@ -32,6 +32,9 @@ return {
         "williamboman/mason.nvim",
         config = function()
             require("mason").setup()
+            vim.keymap.set("n", "<leader>s", function()
+              vim.lsp.buf.format()
+            end, { desc = "Format file" })
         end
     }
 }
