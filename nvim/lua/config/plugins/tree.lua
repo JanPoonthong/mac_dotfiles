@@ -12,6 +12,9 @@ return {
   ---@type neotree.Config?
   opts = {
     -- fill any relevant options here
+    window = {
+      position = "current",
+    },
     filesystem = {
       filtered_items = {
         visible = true,
